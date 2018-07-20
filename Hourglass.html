@@ -8,12 +8,12 @@
 </head>
 <body>
     <h2>모래시계</h2>
-    <h3 id = 'time'>시간</h3>
+    <h3 id = 'time'>0</h3>
     <p id = 'result'>결과</p>
     <script>
         var p = document.getElementById('result');
         var time = document.getElementById('time');
-        
+        p.innerHTML = hourglassTime(0);
         var input = Number(prompt("시간을 입력하시오"));
         start(0);
 
@@ -30,18 +30,11 @@
                    },1000)
             }
         // 제귀함수를 사용함
-        
-/*
-        function time(x) {
-            setTimeout(function() {
-                p.innerHTML = hourglassTime(x);
-            },2000*x);
-        }
-   */     //연속으로 나오는게 어려워 지연시간을 변수로둬 1번지연 :3초 2번지연 6초 이런식으로 동시 실행하면 출력은 순처적으로됨
+       
 
         function hourglassTime(j) {
             switch (j%4) {
-            case 1 :
+            case 0 :
             console.log('----------');
             console.log(' -******- ');
             console.log('  -****-  ');
@@ -60,7 +53,7 @@
             //로그모양을 hourglassResult로 문서에 입힘                 
             break;
 
-            case 2 :
+            case 1 :
             console.log('----------');
             console.log(' -***   - ');
             console.log('  -****-  ');
@@ -78,7 +71,7 @@
             '&nbsp----------<br>';
             break;
 
-            case 3 :
+            case 2 :
             console.log('----------');
             console.log(' -      - ');
             console.log('  -  **-  ');
@@ -97,7 +90,7 @@
             
             break;
             
-            case 0 :
+            case 3 :
             console.log('----------');
             console.log(' -      - ');
             console.log('  -    -  ');
