@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>소수판별기</title>
+</head>
+<body>
+    <h2>소수판별기</h2>
+    <p id = 'result'>결과</p>
+    <script>
+        var input = prompt('숫자를 입력하시오');
+        var sosuStack = 0;
+        var output = document.getElementById('result');
+
+        for (var stack = 1; stack <= input; stack++) {
+            trueSosu = input%stack;
+            if (trueSosu === 0) {
+                sosuStack ++;                
+            }
+        }
+        if (sosuStack >2) {
+            console.log(input + '는 소수가 아닙니다.');
+            output.innerHTML = input + '는 소수가 아닙니다.';  
+        }
+        else if (sosuStack === 2) {
+            console.log(input + '는 소수 입니다.');
+            output.innerHTML = input + '는 소수 입니다.';
+        }
+    </script>
+</body>
+</html>
