@@ -8,25 +8,25 @@
 </head>
 <body>
     <h2>소수판별기</h2>
-    <p id = 'result'>결과</p>
+    <p>결과</p>
     <script>
         var input = prompt('숫자를 입력하시오');
         var sosuStack = 0;
-        var output = document.getElementById('result');
+        var isPrime = true;
 
-        for (var stack = 1; stack <= input; stack++) {
-            trueSosu = input%stack;
-            if (trueSosu === 0) {
-                sosuStack ++;                
+        for (var stack = 2; stack < input; stack++) {
+           
+            if (input%stack === 0) {
+                isPrime = false;  
+                break;             
             }
         }
-        if (sosuStack >2) {
-            console.log(input + '는 소수가 아닙니다.');
-            output.innerHTML = input + '는 소수가 아닙니다.';  
+        if (isPrime) {
+            document.write(input+'= 소수입니다.');
         }
-        else if (sosuStack === 2) {
-            console.log(input + '는 소수 입니다.');
-            output.innerHTML = input + '는 소수 입니다.';
+        else {
+            
+            document.write(input+'= 소수가 아닙니다.');
         }
     </script>
 </body>
