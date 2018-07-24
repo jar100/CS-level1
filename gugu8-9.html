@@ -9,16 +9,19 @@
 <body>
     출력한 단수 :<input type = 'text' id ='num' value = '2'><br>
     <button onclick = 'runGugu()'>확인</button>
+    <h2 id="result1"></h2>
+    <p id = 'result2'></p>
     <script>
         function runGugu() {
             var input = document.getElementById('num').value;
             var i = Number(input);
-            document.write('<h2>'+i+ '단 </h2>');
+            document.getElementById('result1').innerHTML='<h2>'+i+ '단 </h2>';
+            document.getElementById('result2').innerHTML='';
             if (i < 2 || i > 10) {
-                document.write('2이상 9 이하의  숫자를 입력하시오');  
+                document.getElementById('result2').innerHTML='2이상 9 이하의  숫자를 입력하시오';  
             } else {
                 for( var j = 1; j < 10; j ++) {
-                    document.write(i+ ' x ' + j +' = ' + i*j + '<br>');
+                    document.getElementById('result2').innerHTML += i+ ' x ' + j +' = ' + i*j + '<br>';
                 }
             }
         }
