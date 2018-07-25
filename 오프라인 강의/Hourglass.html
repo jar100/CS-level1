@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+       p {
+           font-family: "Courier New", Courier, monospace;
+           font-size: 2em;    
+       }
+   </style>
+</head>
+<body>
+    <h1>모래시계</h1>
+    <p id="screen"></p>
+    <button id="stop" onclick="stop()">멈추기</button>
+    <script>
+        screen = document.getElementById('screen');
+        var updateTime = function() {
+            screen.innerHTML = new Date();
+        };
+
+        var pid = setInterval(updateTime, 1000);
+
+        var stop = function() {
+            clearInterval(pid);
+            screen.innerHTML  = "끝";
+        };
+    </script>
+</body>
+</html>
