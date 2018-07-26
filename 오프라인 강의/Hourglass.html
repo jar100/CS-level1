@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-       p {
-           font-family: "Courier New", Courier, monospace;
-           font-size: 2em;    
-       }
-   </style>
+        p {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 2em;	
+        }
+    </style>
 </head>
 <body>
     <h1>모래시계</h1>
@@ -22,28 +22,65 @@
             screen.innerHTML = new Date();
         };
 
-        //1. 초기화
+        //1. 5 * 10 초기화 
+
         var glass = [];
+        var count = 0;
+
         var init = function() {
-            for (var i = 0; i < 5 ; i ++) {
+
+            count = 0;
+
+            //배열 초기화
+            for (var i = 0; i < 10; i++) {
                 glass.push([]);
-                for (var j = 0; j < 5; j++){
-                    glass[i][j] = '_';
+                for (var j = 0; j < 5; j++) {
+                   glass[i][j] = '&nbsp;';
                 }
             }
+
+            //테두리 만들기 
+            for (var j = 0; j < 5; j++) {
+                   glass[0][j] = '-';
+            }
+            for (var j = 0; j < 5; j++) {
+                   glass[9][j] = '-';
+            }   
         };
-        
         init();
-        //2.모래시계 그리기
+
+        //2. 모래시계 그리기
         var display = function() {
             var str = "";
-            for ( var i = 0; i < 10; i ++)
-            {
-                str += glass[i].join
+            for (var i = 0; i < 10; i++) {
+                str += glass[i].join("") + "<br>";
             }
+            screen.innerHTML = str;
+        };
+
+
+        //떨어뜨리기 구현
+        var drop = function() {
+            console.log("drop", count);
+            count++;
+
+            if (count > 9) {
+                return;
+            }
+
+            var middle = 2;
+            if (count > 1) {
+                glass[count - 1][middle] = '&nbsp;';
+            }
+            glass[count][middle] = 'O';
+        };
+
+        var play = function() {
+            drop();
+            display();
         }
 
-        var pid = setInterval(updateTime, 1000);
+        var pid = setInterval(play, 300);
 
         var stop = function() {
             clearInterval(pid);
