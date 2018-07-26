@@ -15,29 +15,34 @@
 <body>
     <h2>모래시계</h2>
     타이머 :<input type = 'text' id ='num' value = '초'><br>
-    <button onclick = 'start(0)'>확인</button>
+    <button onclick = 'start()'>확인</button>
     <h3 id = 'time'>0</h3>
     <p id = 'result'>결과</p>
     <script>
         var p = document.getElementById('result');
         var time = document.getElementById('time');
         p.innerHTML = hourglassTime(0);
-        function start(counter) {
-            var input = Number(document.getElementById('num').value);
-            if(counter < input)
-                    setTimeout(function(){
-                        counter++;
-                        time.innerHTML = counter;
-                        p.innerHTML = hourglassTime(counter);
-                        start(counter);
-                        if (counter === input) {
-                            beep();
-                        }
-                   },1000)
+        var counter = 0;
+        var input;
+        var stop;
+        
+        function start() {
+            clearInterval(stop);
+            input = Number(document.getElementById('num').value);
+            counter = 0;
+            time.innerHTML = counter;
+            stop = setInterval(count,1000); 
+        }
+        var count = function() {
+            counter++;
+            time.innerHTML = counter;
+            p.innerHTML = hourglassTime(counter);
+            console.log(counter);
+            if (counter === input) {
+                beep();
+                clearInterval(stop);
             }
-
-        // 제귀함수를 사용함
-       
+        }
 
         function hourglassTime(j) {
             switch (j%4) {
