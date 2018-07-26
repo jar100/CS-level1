@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+       p {
+           font-family: "Courier New", Courier, monospace;
+           font-size: 2em;    
+       }
+   </style>
+</head>
+<body>
+    <h2>직사각형</h2>
+    <p id = 'screen'></p>
+    <script>
+        var str = prompt("밑변 높이 n,m 형식으로 입력하시오 ");
+        var res = str.split(',');
+        var screen = document.getElementById('screen');
+        var stack = '';
+        if (res.length === 2) {
+            for (var i = 0; i < Number(res[1]); i++) {
+                for (var j = 0; j < Number(res[0]); j++) {
+                    stack += '*';
+                }
+                stack +="<br>";
+            }
+            screen.innerHTML = stack;
+        } else {
+            document.write('잘못입력했습니다.');
+        }
+
+    </script>
+</body>
+</html>
