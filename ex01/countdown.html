@@ -7,19 +7,29 @@
     <title>카운트 다운</title>
 </head>
 <body>
+    <p id="screen"></p>
     <script>
-        document.write('결과');
+        var screen = document.getElementById('screen');
         var input = prompt("숫자를 입력");
-        start(Number(input));
-        function start(count) {
-            if( count !== 0) {
-                document.write(count);
-                setTimeout(function() { 
-                    count--;
-                    start(count);
-                },1000)
-            }
+        var num = Number(input);
+        var stop ;
+        
+        var start = function() {
+            stop = setInterval(count,1000);
         }
+                
+        var count = function () {
+            if( num >=0) {
+                screen.innerHTML = num;
+                console.log(num);
+            } else {
+                clearInterval(stop);
+            }
+            num -- ;
+
+    
+        }
+        start();
     </script>
 </body>
 </html>
