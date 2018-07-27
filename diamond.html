@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        p {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 2em;    
+        }
+    </style>
+</head>
+<body>
+    <h2>다이아몬드</h2>
+    <p id = 'screen'></p>
+    <script>
+    var di = [];
+    var screen = document.getElementById('screen');
+    
+    
+    //1. 초기화
+    var init = function() {
+        for (var i = 0; i < 5 ; i ++) {
+            di.push([]);
+            for (var j = 0; j < 9; j++){
+                di[i][j] = '*';
+            }
+        }
+    };
+    init();
+    //2. 다이아 모양으로 변경
+    var dia = function() {
+        for (var i = 0; i < 5; i++) {
+            if (i === 0 || i === 3) {
+                di[i][0] = '&nbsp;';
+                di[i][1] = '&nbsp;';
+                di[i][7] = '&nbsp;';
+                di[i][8] = '&nbsp;';
+            }
+            if (i === 4) {
+                di[i][0] = '&nbsp;';
+                di[i][1] = '&nbsp;';
+                di[i][2] = '&nbsp;';
+                di[i][6] = '&nbsp;';
+                di[i][7] = '&nbsp;';
+                di[i][8] = '&nbsp;';
+            }
+            
+        
+        }
+    }
+    dia();
+    
+    //3.화면에 출력
+    var display = function() {
+        var str = '';
+        for (var i = 0; i < 5; i ++ ) {
+           str += di[i].join('') + '<br>';
+        }
+        screen.innerHTML = str;
+    }
+    display();
+    </script>
+    
+</body>
+</html>
