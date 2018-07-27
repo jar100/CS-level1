@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            p {
+                font-family: "Courier New", Courier, monospace;
+                font-size: 2em;    
+            }
+        </style>
+</head>
+<body>
+    <h2>모래시계</h2>
+    <p id = 'screen'></p>
+    <script>
+        var screen = document.getElementById('screen');
+        
+        //1. 기본 배열 생성
+        var glass = [];
+        var init = function() {
+            for (var i = 0; i < 10 ; i++) {
+                glass.push([]);
+                for (var j = 0 ; j < 10; j ++) {
+                    glass[i][j] = '&nbsp;';
+                }
+            }
+
+        //2. 모래시계모양으로 배열 변경
+            for (var i = 0; i < 10 ; i++) {
+                if (i === 0 || i === 9) {
+                    for(var j = 0; j < 10; j++) {
+                        glass[i][j] ='*';
+                    }
+                }
+                if (i === 1 || i === 8) {                    
+                    glass[i][0] ='*';
+                    glass[i][9] ='*';
+                }
+                if (i === 2 || i === 7) {
+                    glass[i][1] ='*';
+                    glass[i][8] ='*';
+                }
+                if (i === 3 || i === 6) {
+                    glass[i][2] ='*';
+                    glass[i][7] ='*';
+                }
+                if (i === 4 || i === 5) {
+                    glass[i][3] ='*';
+                    glass[i][6] ='*';
+                }
+            }
+        }
+        init();
+
+        //3. 화면에 출력
+        var display = function() {
+            var str = '';
+            for (var i = 0; i < 10; i++) {
+                str += glass[i].join('') + '<br>';
+            }
+            screen.innerHTML = str;
+        }
+        display();
+    
+    </script>
+    
+</body>
+</html>
