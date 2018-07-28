@@ -8,7 +8,7 @@
     <style>
             p {
                 font-family: "Courier New", Courier, monospace;
-                font-size: 2em;    
+                font-size: 1em;    
             }
         </style>
 </head>
@@ -16,54 +16,94 @@
     <h2>모래시계</h2>
     <p id = 'screen'></p>
     <script>
+        var stop;
+        // 모래시계 setInterval 동작시키기 위해 생성 함수 안에 생성했더니 인식을못함.
         var screen = document.getElementById('screen');
         
         //1. 기본 배열 생성
         var glass = [];
         var init = function() {
-            for (var i = 0; i < 10 ; i++) {
+            for (var i = 0; i < 12 ; i++) {
                 glass.push([]);
-                for (var j = 0 ; j < 10; j ++) {
+                for (var j = 0 ; j < 11; j ++) {
                     glass[i][j] = '&nbsp;';
                 }
             }
-
-        //2. 모래시계모양으로 배열 변경
-            for (var i = 0; i < 10 ; i++) {
-                if (i === 0 || i === 9) {
-                    for(var j = 0; j < 10; j++) {
-                        glass[i][j] ='*';
+        //2. 초기상태
+            for (var i = 0; i < 12 ; i++) {
+                if (i === 0 || i === 11) {
+                    for(var j = 0; j < 11; j++) {
+                        glass[i][j] ='-';
                     }
                 }
-                if (i === 1 || i === 8) {                    
-                    glass[i][0] ='*';
-                    glass[i][9] ='*';
+                if (i > 0 && i < 6) {
+                    glass[i][(i-1)] ='\\';
+                    glass[i][(11-i)] ='/';                    
+                    //3. 모래
+                    for(var j = i; j < 11-i; j++) {
+                        glass[i][(j)] ='*';
+                    }
                 }
-                if (i === 2 || i === 7) {
-                    glass[i][1] ='*';
-                    glass[i][8] ='*';
-                }
-                if (i === 3 || i === 6) {
-                    glass[i][2] ='*';
-                    glass[i][7] ='*';
-                }
-                if (i === 4 || i === 5) {
-                    glass[i][3] ='*';
-                    glass[i][6] ='*';
+                if (i > 5 && i < 11) {
+                    glass[i][(10-i)] ='/';
+                    glass[i][(i)] ='\\';                    
                 }
             }
+            return;
         }
         init();
 
         //3. 화면에 출력
         var display = function() {
             var str = '';
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 12; i++) {
                 str += glass[i].join('') + '<br>';
             }
             screen.innerHTML = str;
+            return;
         }
         display();
+        var a = 7;
+         //stack 임시
+        // 모래 하나 떨어지는거
+        var stack1 = 0;
+        var move = function() {
+            if(a <11-stack1) {
+                // 한줄 모래 생성 코드
+                glass[a-1][5] = '&nbsp;';
+                glass[a][5] = '*';
+                display();
+                a++;
+            } else if (a == 11-stack1) {
+                // 아래 삼각형에 깔리는 모래생성코드
+                for (var j = 1+stack1; j < 10-stack1 ; j++) {
+                    glass[10-stack1][j] = '*';
+                }
+                // 위에 삼각형 모래 삭제 코드
+                for (var j = 0; j < 11 ; j++) {
+                    if(glass[1+stack1][j] === '*') {
+                        glass[1+stack1][j] = '&nbsp;';
+                    }
+                }   
+                display();
+                stack1 +=1;
+                a = 7;
+                // 깔리면 에이를 다시 6으로 초기화
+                if (stack1==6) {
+                    init();
+                    display();
+                    stack1 = 0;
+                }
+                return;
+            }
+            console.log(a); 
+        };
+        var start = function() {
+            clearInterval(stop);
+            stop = setInterval(move,1000);
+            return;
+        }
+
     
     </script>
     
