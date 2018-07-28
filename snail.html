@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            p {
+                font-family: "Courier New", Courier, monospace;
+                font-size: 1em;    
+            }
+    </style>
+</head>
+<body>
+    <p id = 'screen'></p>
+    <script>
+    //var input = prompt('배열 입력');
+    var screen = document.getElementById('screen');
+    var arrIn = prompt("");
+    var arr= [];
+    var num = 1 ;
+    var str ='';
+    var count = 0;
+
+
+    var clear = function() {
+        //1. 초기화
+        count = 0;
+        num = 1;
+        for (var i = 0; i < arrIn; i ++) {
+            arr.push([]);
+            for (var j = 0; j < arrIn; j++) {
+                arr[i][j] = '';
+            }
+        }
+
+    }
+        //1. 초기화
+        for (var i = 0; i < arrIn; i ++) {
+            arr.push([]);
+            for (var j = 0; j < arrIn; j++) {
+                arr[i][j] = '';
+            }
+        }
+    
+
+    var stack = function() {
+        if(num <= arrIn*arrIn) {
+            // 1. j 증가
+            for (var j = count; j < arrIn-count; j++) {
+                arr[count][j] = num;
+                num ++;
+                console.log(num);
+            }
+
+            //2. i 증가
+            for (var i = count+1; i < (arrIn-count); i++) {
+                arr[i][arrIn-(1+count)] = num;
+                num ++;
+                console.log(num);
+            }
+            //3. j 감소
+            for (var j = arrIn-(2+count); j >= count; j--) {
+                arr[arrIn-(1+count)][j] = num;
+                num ++;
+                console.log(num);
+            }
+
+            //4. i 감소
+            for (var i = arrIn-(2+count); i >= (1+count); i--) {
+                arr[i][count] = num;
+                num ++;
+                console.log(num);
+
+            }
+        }
+/*
+        */
+    }
+    var play = function() {
+        //arrIn = Number(prompt("입력"));
+        while(num <= arrIn*arrIn) {
+            stack();
+            count++;
+            console.log("카운트"+count);
+        } 
+        if(num > arrIn*arrIn){
+            for (var i = 0; i < arrIn; i ++) {
+                console.log(arr[i]);
+            }
+        }  
+    }
+    var display = function() {
+        //5. 출력
+        for (var i = 0; i < arrIn; i ++) {
+           // for (var j = 0; j < arrIn; j++) {
+              //  str += arr[i][j];
+              document.write(arr[i]+'<br>');
+           // }
+            str += '<br>';
+        }
+
+    //document.write(str);
+    }
+
+    </script>
+</body>
+</html>
