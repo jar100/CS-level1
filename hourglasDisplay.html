@@ -70,26 +70,27 @@
         var move = function() {
             if(a <11-stack1) {
                 // 한줄 모래 생성 코드
-                glass[a-1][5] = '&nbsp;';
-                glass[a][5] = '*';
+                //glass[a-1][5] = '&nbsp;';
+                glass[a-1][5] = '*';
                 display();
                 a++;
             } else if (a == 11-stack1) {
+                stack1 +=1;
                 // 아래 삼각형에 깔리는 모래생성코드
-                for (var j = 1+stack1; j < 10-stack1 ; j++) {
-                    glass[10-stack1][j] = '*';
+                for (var j = 0+stack1; j < 11-stack1 ; j++) {
+                    glass[11-stack1][j] = '*';
                 }
                 // 위에 삼각형 모래 삭제 코드
                 for (var j = 0; j < 11 ; j++) {
-                    if(glass[1+stack1][j] === '*') {
-                        glass[1+stack1][j] = '&nbsp;';
+                    if(glass[0+stack1][j] === '*') {
+                        glass[0+stack1][j] = '&nbsp;';
                     }
                 }   
                 display();
-                stack1 +=1;
                 a = 7;
-                // 깔리면 에이를 다시 6으로 초기화
-                if (stack1==6) {
+                // 깔리면 에이를 다시 7으로 초기화
+                if (stack1 === 6) {
+                    // 6 번 다 동작하면 초기화
                     init();
                     display();
                     stack1 = 0;
@@ -100,7 +101,7 @@
         };
         var start = function() {
             clearInterval(stop);
-            stop = setInterval(move,1000);
+            stop = setInterval(move,700);
             return;
         }
 
