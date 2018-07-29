@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            p {
+                font-family: "Courier New", Courier, monospace;
+                font-size: 1em;	
+            }
+    </style>
+</head>
+<body>
+    <h2>소수출력</h2>
+    구하고싶은소수:<input type = 'text' id ='num' value = '1000'><br>
+    <button onclick = 'start()'>확인</button>
+    <p id = 'screen'></p>
+    <script>
+        var screen = document.getElementById('screen');
+
+        var numbers = {
+            'all': [],
+            'prime': [],
+            'isPrime' : function(number) {
+                for(var i = 2; i < number ; i++) {
+                    if(number%i === 0) {
+                        //numbers.addAll(number);
+                        return false;
+                    } else {
+                    // numbers.addPrime(number);
+                        return true;
+                    }
+                }
+            },
+            'addPrime' : function(number) {
+                numbers.prime.push(number);
+            },
+            'addAll' : function(number) {
+                numbers.all.push(number);
+            },
+            'getAllPrimes' : function() {
+                for (var i = 0; i < numbers.prime.length; i ++) {
+                    str += numbers.prime[i] + ',';
+                if (i>1 && i%10 ===1) {
+                    str +='<br>';
+                }
+                }
+            }
+        };
+        var number = 0 ;
+        var str = '';
+        var start = function() {
+            number = Number(document.getElementById('num').value);
+            for (var i = 1; i < number; i++) {
+                if(numbers.isPrime(i)) {
+                    numbers.addPrime(i);
+                } else {
+                    numbers.addAll(i);
+                }
+            }
+           display(); 
+        }
+        var display = function() {
+            numbers.getAllPrimes();
+            screen.innerHTML = str;
+        }
+
+    </script>
+    
+</body>
+</html>
