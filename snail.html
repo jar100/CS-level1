@@ -22,8 +22,8 @@
     var num = 1 ;
     var str ='';
     var count = 0;
-
-
+    var maxNum = arrIn*arrIn
+    var maxnumLegth = maxNum.toString().length;
     var clear = function() {
         //1. 초기화
         count = 0;
@@ -36,40 +36,40 @@
         }
 
     }
-        //1. 초기화
-        for (var i = 0; i < arrIn; i ++) {
-            arr.push([]);
-            for (var j = 0; j < arrIn; j++) {
-                arr[i][j] = '';
-            }
+    //1. 초기화
+    for (var i = 0; i < arrIn; i ++) {
+        arr.push([]);
+        for (var j = 0; j < arrIn; j++) {
+            arr[i][j] = 'aaaa';
         }
-    
+    }
+
 
     var stack = function() {
         if(num <= arrIn*arrIn) {
             // 1. j 증가
             for (var j = count; j < arrIn-count; j++) {
-                arr[count][j] = num;
+                arr[count][j] = blank1();
                 num ++;
                 console.log(num);
             }
 
             //2. i 증가
             for (var i = count+1; i < (arrIn-count); i++) {
-                arr[i][arrIn-(1+count)] = num;
+                arr[i][arrIn-(1+count)] = blank1();
                 num ++;
                 console.log(num);
             }
             //3. j 감소
             for (var j = arrIn-(2+count); j >= count; j--) {
-                arr[arrIn-(1+count)][j] = num;
+                arr[arrIn-(1+count)][j] = blank1();
                 num ++;
                 console.log(num);
             }
 
             //4. i 감소
             for (var i = arrIn-(2+count); i >= (1+count); i--) {
-                arr[i][count] = num;
+                arr[i][count] = blank1();
                 num ++;
                 console.log(num);
 
@@ -94,16 +94,30 @@
     var display = function() {
         //5. 출력
         for (var i = 0; i < arrIn; i ++) {
-           // for (var j = 0; j < arrIn; j++) {
-              //  str += arr[i][j];
-              document.write(arr[i]+'<br>');
-           // }
+            for (var j = 0; j < arrIn; j++) {
+                str += arr[i][j]+'&nbsp;';
+            }
             str += '<br>';
         }
+    screen.innerHTML = str;
 
-    //document.write(str);
     }
+    // 공백을 추가해 길이를 맞춰보는 함수
+    var blank1 = function() {
+        var numLegth = num.toString().length;
+        var numStack =maxnumLegth-numLegth;
+        var numString = num.toString();
+        var numBlank = '';
+        for (var i = 0; i < numStack; i ++) {
+            numBlank += '&nbsp;'
+        }
+        numBlank = numBlank.concat(numString);
+        return numBlank;
 
+    }
+    play();
+    display();
+    
     </script>
 </body>
 </html>
