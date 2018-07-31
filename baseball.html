@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>야구게임</h2>
+    입력창 :<input type = 'text' id ='num' value = ''><br>
+    <button onclick = 'start()'>정답</button>
+    <button onclick = 'random1()'>정답 리셋</button>
+    <p id = 'stack'></p>
+    <p id = 'result'>3자리 숫자를 입력하시오</p>
+    <script>
+        var num = [];
+        var inputNum = [];
+        var a = 0;
+        var strike = 0 ;
+        var ball = 0;
+        var out = 0;
+        var screen = document.getElementById('result');
+        var str;
+        var screen1 = document.getElementById('stack');
+        var stack = 0;
+
+        // 동작
+        var start = function() {
+            // 입력값 인식
+            strike = 0;
+            ball = 0;
+            out = 0 ;
+            stack ++;
+            screen1.innerHTML = '기회 9번 중 '+ stack;
+            inputNum = document.getElementById('num').value;
+            if (inputNum.length === 3 && isNull() !==false) {
+                isStrike();
+                isBall();
+                isOut();
+                display();
+            } else {
+                str = '잘못 입력했습니다. <br> 3자리 숫자를 각각 다르게 입력하시오';
+                screen.innerHTML = str;
+            }
+            if (stack ===9) {
+                str = '실패 하셨습니다. 정답이 리셋 됩니다.'
+                screen.innerHTML = str;
+                random1();
+                stack = 0;
+            }
+            
+        }
+        
+        //비교 공식
+        //1. 스트라이크 판별
+        var isStrike = function() {
+            for (var i = 0 ; i < 3; i ++) {
+                if(Number(inputNum[i]) === num[i]) {
+                    strike ++;
+                }
+            }
+        }
+        //2. 볼 판별
+        var isBall = function() {
+            for (var i =0; i < 3; i++) {
+                for ( var j = 0 ; j < 3; j ++) {
+                    if(Number(inputNum[i]) === num[j]) {
+                        ball++;
+                    }
+                }
+            }
+        ball = ball - strike;
+        }
+        
+        //3. 아웃
+        var isOut = function() {
+            out = 3-strike - ball;
+        }
+
+        // 1. 초기 화
+        var random1 = function() {
+
+            for ( var i= 0; i < 3; i++) {
+                a = Math.floor(Math.random()*10);
+                while (a == num[i-1] || a == num[i-2] ) {
+                    a = Math.floor(Math.random()*10);
+                    //console.log(a);
+                   // console.log(i+'i')
+                }
+                num[i] = a;
+
+            }
+            console.log(num);
+        }
+        // 출력
+
+        var display = function() {
+            if(strike === 3) {
+                str = strike +' Strike 정답입니다.';
+
+            } else {
+            str =strike+' 스트라이크 ' +ball + '볼 '+ out + '아웃';
+            }
+            screen.innerHTML = str;
+        }
+
+        //입력값 중복확인
+        var isNull = function() {
+            if (inputNum[0] === inputNum[1] || inputNum[0] === inputNum[2] || inputNum[1] === inputNum[2]) {
+                return false;
+            }
+        }
+    
+    //첫 시작시 랜덤함수 돌림
+    random1();
+
+        
+
+    </script>
+</body>
+</html>
