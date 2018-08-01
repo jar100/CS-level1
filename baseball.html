@@ -16,10 +16,6 @@
     <script>
         var num = [];
         var inputNum = [];
-        var screen = document.getElementById('result');
-        var str;
-        var screen1 = document.getElementById('stack');
-        var stack = 0;
 
         // 동작
         var start = function() {
@@ -27,8 +23,6 @@
            var strike = 0;
            var ball = 0;
            var out = 0 ;
-            stack ++;
-            screen1.innerHTML = '기회 5번 중 '+ stack;
             inputNum = document.getElementById('num').value;
             if (inputNum.length === 3 && isNull() !==false) {
                 strike =isStrike();
@@ -36,16 +30,8 @@
                 out = isOut(strike,ball);
                 display(strike,ball,out);
             } else {
-                str = '잘못 입력했습니다. <br> 3자리 숫자를 각각 다르게 입력하시오';
-                screen.innerHTML = str;
+                display();
             }
-            if (stack ===5) {
-                str = '실패 하셨습니다. 정답이 리셋 됩니다.'
-                screen.innerHTML = str;
-                random1();
-                stack = 0;
-            }
-            
         }
         
         //비교 공식
@@ -63,11 +49,11 @@
         var isBall = function(strike) {
             var ball = 0;
             for (var i =0; i < 3; i++) {
-                if( num.includes(inputNum[i]) ) {
+                if( num.includes(Number(inputNum[i])) ) {
                     ball++;
                 }
             }
-        ball = strike-ball;
+        ball = ball-strike;
         return ball;
         }
         
@@ -96,10 +82,14 @@
         // 출력
 
         var display = function(strike,ball,out) {
+            var screen = document.getElementById('result');
+            var screen1 = document.getElementById('stack');  
             var str = '';
             if(strike === 3) {
                 str = strike +' Strike 정답입니다.';
-
+                random1();
+            } else if (isNull() === false) {
+            str = '숫자를 잘못 입력하셨습니다. 중복 없는 숫자를 입력하세요';
             } else {
             str =strike+' 스트라이크 ' +ball + '볼 '+ out + '아웃';
             }
