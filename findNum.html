@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>숫자게임</h2>
+
+    <button onclick = 'start()'>정답</button>
+    입력창 :<input type = 'number' id ='num' value = '50'><br>
+    <p id = 'screen'></p>
+    <script>
+    var randumNum = 0;
+    var input = 0;
+    var screen = document.getElementById('screen');
+
+
+    var start = function() {
+   //  while(input !== randumNum) {
+         console.log(randumNum);
+         var str = '';
+         input = Number(document.getElementById('num').value);
+         str =isNum(input,randumNum);
+         screen.innerHTML = str;
+  //   }   
+    }
+
+    var randum = function() {
+        var num = Math.floor(Math.random()*(100)) + 1;
+        randumNum = num;
+        return num;
+    }
+    var isNum = function(inputNum,randomNum) {
+        var str = '';
+        if(inputNum === randomNum) {
+            str = '맞았습니다.';
+        } else if (inputNum <randomNum) {
+            str = '입력하신 ' + inputNum + '가 답 보다 작습니다';
+        } else if (inputNum > randomNum) {
+            str = '입력하신 ' + inputNum + '가 답 보다 큽니다';
+        } else {
+            str = '에러 입니다. ';
+        }
+        return str;
+    }
+    randum();
+   // start();
+    </script>
+</body>
+</html>
