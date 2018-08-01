@@ -45,6 +45,7 @@
             }
             return strike;
         }
+        
         //2. 볼 판별
         var isBall = function(strike) {
             var ball = 0;
@@ -53,8 +54,8 @@
                     ball++;
                 }
             }
-        ball = ball-strike;
-        return ball;
+            ball = ball-strike;
+            return ball;
         }
         
         //3. 아웃 판별
@@ -77,7 +78,7 @@
                 num[i] = num1;
 
             }
-            console.log(num);
+            //console.log(num);
         }
         // 출력
 
@@ -89,9 +90,9 @@
                 str = strike +' Strike 정답입니다.';
                 random1();
             } else if (isNull() === false) {
-            str = '숫자를 잘못 입력하셨습니다. 중복 없는 숫자를 입력하세요';
+                str = '숫자를 잘못 입력하셨습니다. 중복 없는 숫자를 입력하세요';
             } else {
-            str =strike+' 스트라이크 ' +ball + '볼 '+ out + '아웃';
+                str =strike+' 스트라이크 ' +ball + '볼 '+ out + '아웃';
             }
             screen.innerHTML = str;
         }
