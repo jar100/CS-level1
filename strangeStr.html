@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var s = "try hello world";
+    var answer = '';
+    var strangeStr = s.split(" ");
+    var str =[];
+    for (var i = 0; i < strangeStr.length; i++) {
+    str[i] = strangeStr[i].split("");
+        
+    } 
+    console.log(str);
+    for (var j =0 ; j <str.length; j++) {
+        for (var i =0; i <str[j].length; i++) {
+            if(Math.floor(i %2) === 0) {
+                str[j][i] =str[j][i].toUpperCase();
+                answer += str[j][i];
+            } else if(Math.floor(i%2) ===1) {
+                str[j][i] =str[j][i].toLowerCase();
+                answer += str[j][i];
+            }
+            
+        } 
+        if(j !== (str.length-1)) {
+            answer += " ";
+        }
+
+    }
+    console.log(answer);
+  
+    
+    </script>
+    
+</body>
+</html>
