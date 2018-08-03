@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>로또 번호</h2>
+    <button onclick = 'start()'>1등가자</button>
+    <p id = 'screen'></p>
+    <script>
+        var screen = document.getElementById('screen');
+        var arrLotto = [];
+        var arr = [] ;
+        //var errorarr = [];
+        var num = 0;
+        // 초기값
+          
+        var start = function() {
+            screen.innerHTML = "";
+            makeArr();
+            arrLotto = [];
+            for(var i = 0; i<6; i++) {
+                num = random();
+                arrLotto.push(arr[num-1]);
+               // console.log(num+'에어리어'+arr[num-1]);
+                //console.log(arr);
+                /*if(errorarr.includes(arr[num-1]) === false) {
+                    errorarr.push(arr[num-1]);
+                }*/
+                arr.splice(arr.indexOf(arr[num-1]),1);
+            }
+               // console.log(arrLotto);
+            screen.innerHTML = arrLotto;
+            //console.log(errorarr);
+        }
+        
+        var makeArr = function() {
+            arr = [];
+            for (var i =0; i < 45; i++) {
+                arr[i] = (i+1);
+            }
+        }
+
+        var random = function() {
+            var num = 0;
+            num = Math.floor(Math.random()*(arr.length))+1;
+            return num;
+        }
+
+        
+        
+      
+    </script>
+
+
+</body>
+</html>
