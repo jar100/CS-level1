@@ -1,0 +1,54 @@
+hello web
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var arr = ['abq','abw','abcq','adce','adcq'];
+    function solution(strings, n) {
+        var answer = [];
+        var n = n;
+        answer = strings.sort(function (a,b){
+            var x = a[n];
+            var y = b[n];
+            var i = 0;
+            while(x == y) {
+                i ++;
+                x =a[n+i];
+                y = b[n+i];
+            }
+            if (x < y) {return -1;}
+            if (x > y) {return 1;}
+            console.log[arr];
+        });
+        return answer;
+    }
+    function arr2(strings,n) {
+        var answer = [];
+        var n = n;
+        answer = strings.sort(function (a,b){
+            var x = a[n];
+            var y = b[n];
+            if(x == y) {
+                if (a < b) {
+                    return -1;
+                } else if(a>b) {
+                    return 1;
+
+                }
+            }
+            else if (x < y) {return -1;}
+            else if (x > y) {return 1;}
+            console.log[arr];
+        });
+        return answer;
+
+    }
+    </script>
+</body>
+</html>
