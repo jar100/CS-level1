@@ -1,36 +1,84 @@
 // 메인함수
-function main() {
+
+let input = {'arr':[]};
+
+input.getInput = function() {
+    return this.arr.join("");
 }
-let str = [''];
-let count = 0;
+
+input.empty = function() {
+    return this.arr.length === 0;
+}
+
+input.removeAll = function() {
+    this.arr = [];
+}
+
+input.getValue = function() {
+    var str = this.arr.shift();
+    var n = Number(str);
+    return n;
+}
+
+input.getOperator = function() {
+    var op = this.arr.shift();
+    if ( op === '+' || op === '-' || op === '/' || op === '*' || op === '='  ) {
+        return op;
+    } else {
+        return ;
+    }
+
+}
+
+
+let calculator = {};
+calculator.calculate = function(result,second,op) {
+    var ret;
+    switch(op) {
+        case '+':
+        ret = (result +second);
+        break;
+        case '-':
+        ret =(result -second);
+        break;
+        case '*':
+        ret =(result *second);
+        break;
+        case '/':
+        ret =(result /second);
+        break;
+        default:
+        return NaN;
+
+    }
+    return ret;
+}
+
+
+
 let str2 = '';
 let screen1 = document.getElementById('output');
 let screen2 = document.getElementById('screen');
 
 var clickNums = function(event) {
-    str[count] += event.target.innerHTML;
+    var num= event.target.innerHTML;
+    input.arr.push(num);
     console.log(event.target.innerHTML);
-    str2 += event.target.innerHTML;
+    str2 = input.getInput();
     screen2.innerHTML = str2;
 }
 
 var clickOthers = function(event) {
     if( event.target.innerHTML != 'BS'){
-
-        str.push('');
-        count++;
-        str[count] += event.target.innerHTML;
-        str2 += event.target.innerHTML;
+        var str= event.target.innerHTML;
+        input.arr.push(" "+str+" ");
+        str2 = input.getInput();;
         console.log(event.target.innerHTML);
         screen2.innerHTML = str2;
-        str.push('');
-        count++;
     } else if (event.target.innerHTML = 'BS') {
-        str = [''];
-        str2 ='';
-        count = 0;
-        screen1.innerHTML ='답: 0';
-        screen2.innerHTML = '';
+        input.arr.pop();
+        str2 =input.getInput();
+        screen2.innerHTML = str2;
     }
 
 }
@@ -40,37 +88,15 @@ var clickOthers = function(event) {
 // 계산기 동작
 // 4가지 케이스에 따라 동작하게 만듬
 // 답도 출력하게 만듬
-var calcu = function(input) {
-    var reselt =0;
-    var screen = document.getElementById('output');
-    changeInput(input);
-    reselt = input[0];
-    for (var i = 0; i< input.length; i++) {
-        switch (input[i]) {
-            case '+':
-            reselt = (reselt +input[i+1]);
-            break;
-            case '-':
-            reselt =(reselt -input[i+1]);
-            break;
-            case '*':
-            reselt =(reselt *input[i+1]);
-            break;
-            case '/':
-            reselt =(reselt /input[i+1]);
-            break;
-        }
+var calcu = function(inputNum) {
+    input.arr = input.getInput().split(" ");
+    var result = input.getValue();
+    while (!input.empty()) {
+        var op = input.getOperator();
+        var second = input.getValue();
+        result = calculator.calculate(result,second,op);
     }
-    screen1.innerHTML ='답: '+reselt;
+    screen1.innerHTML = result;
+    input.removeAll();
 }
 
-//배열 값중 숫자는 숫자로 변경 사실 필요없는듯?
-var changeInput = function(input) {
-    for(var i = 0; i < input.length; i++) {
-        if(input[i] === '+' || input[i] === '-' || input[i] === '/' || input[i] === '*' || input[i] === '=' ) {
-        
-        } else {
-            input[i] = Number(input[i]);
-        }
-    }
-}
