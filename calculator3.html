@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style> 
+        p {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1em;    
+        }
+        button { 
+            width:50px; 
+        } 
+    </style>
+</head>
+<body>
+    <h2>계산기</h2>
+    계산값<input type ='number' id = 'num1' value = ''><br>    
+    연산자<input type ='text' id = 'calcu' value = ''><br>
+    계산값<input type ='number' id = 'num2' value = ''><br>
+    
+    
+    
+    <button onclick = "calculation('+')">+</button><br>
+    <button onclick = "calculation('-')">-</button><br>
+    <button onclick = "calculation('*')">*</button><br>
+    <button onclick = "calculation('/')">/</button><br>
+    <button onclick = 'main()'>=</button><br>
+
+    <p id = 'screen'></p>
+    <script>
+
+        // 메인함수
+        function main() {
+            var input1 = Number(document.getElementById('num1').value);
+            var input2 = Number(document.getElementById('num2').value);
+            //var screnn = display(input1,input2);
+            var calcu = document.getElementById('calcu').value;
+            calculation(calcu,input1,input2);
+           
+        }
+        
+        
+        function calculation(a) {
+            var input1 = Number(document.getElementById('num1').value);
+            var input2 = Number(document.getElementById('num2').value);
+            str = '';
+            switch (a) {
+                case '+':
+                str += '더하기: ' + (input1 +input2) +'<br>' ;
+                break;
+                case '-':
+                str += '빼기: ' + (input1 -input2) +'<br>' ;
+                break;
+                case '*':
+                str += '곱하기: ' + (input1 *input2) +'<br>' ;
+                break;
+                case '/':
+                str += '나누기: ' + (input1 /input2) +'<br>' ;
+                break;
+            }
+            var screen = document.getElementById('screen');
+            screen.innerHTML= str;
+        } 
+
+
+        function display(input1,input2) {
+            var str = "";
+          str = '더하기: ' + (input1 +input2) +'<br>'+
+            '빼기: ' + (input1 -input2) +'<br>'+
+            '곱하기: ' + (input1 * input2) +'<br>'+
+            '나누기: ' + (input1 / input2) +'<br>';
+            var screen = document.getElementById('screen');
+            screen.innerHTML= str;
+        }
+
+        // 사칙연산 계산
+        // 숫자와 사칙연산 기호 따로 나눔
+        // join 으로 다다다다 하다가 +-*/ 나오면 i++ 하면됨 
+        
+  
+
+
+        
+    </script>
+</body>
+</html>
