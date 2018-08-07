@@ -27,6 +27,7 @@ var clickOthers = function(event) {
         count++;
     } else if (event.target.innerHTML = 'BS') {
         str = [''];
+        str2 ='';
         count = 0;
         screen1.innerHTML ='답: 0';
         screen2.innerHTML = '';
