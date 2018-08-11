@@ -3,6 +3,15 @@ var numbox = {n:100, w:50,arrays:[]};
 var canvas = document.getElementById('puzzle');
 var ctx = canvas.getContext('2d');     
 
+var upPressed = false;
+var downPressed = false;
+var rightPressed = false;
+var leftPressed = false;
+
+//document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+
 
 
 // 배열 정렬하고 만드는 함수들 좀더 줄일 수 있을거 같다.
@@ -18,6 +27,7 @@ numbox.makeList = function() {
         this.numArr[i] = this.arrays.splice(0,4);
     }
 }
+
 // 랜덤정렬
 numbox.shuffle = function(arrays) {
     for ( var i =arrays.length-1; i>0; i--) {
@@ -78,7 +88,7 @@ numbox.numpush = function() {
     this.numArr[0].push(this.numshift);
 }
 
-
+////////////////////////버튼
 // 오른쪽
 numbox.right = function() {
     this.find();
@@ -89,10 +99,9 @@ numbox.right = function() {
         this.numArr[Number(this.zero[0])] [Number(this.zero[2]) + 1] = this.numArr[this.zero[0]][Number(this.zero[2])];
         this.numArr[this.zero[0]] [Number(this.zero[2])] = temp;
     }
-    display();
+   // display();
 }
-
-// 오른쪽
+// 왼쪽
 numbox.left = function() {
     this.find();
     if (this.zero[2] === "0" ) {
@@ -102,13 +111,7 @@ numbox.left = function() {
         this.numArr[Number(this.zero[0])] [Number(this.zero[2]) - 1] = this.numArr[this.zero[0]][Number(this.zero[2])];
         this.numArr[this.zero[0]] [Number(this.zero[2])] = temp;
     }
-    display();
 }
-
-
-
-
-
 // 위
 numbox.up = function() {
     this.find();
@@ -119,9 +122,6 @@ numbox.up = function() {
         this.numArr[this.zero[0]-1][this.zero[2]] = this.numArr[this.zero[0]][this.zero[2]];
         this.numArr[this.zero[0]][this.zero[2]] = temp;
     }
-    ctx.clearRect(0, 0, 800,500);
-    numbox.drawbox();
-    numbox.drawnum();
 }
 // 아래
 numbox.down = function() {
@@ -133,28 +133,57 @@ numbox.down = function() {
         this.numArr[Number(this.zero[0])+1][this.zero[2]] = this.numArr[this.zero[0]][this.zero[2]];
         this.numArr[this.zero[0]][this.zero[2]] = temp;
     }
-    display();
+}
+///////////////////////////////
+
+function keyUpHandler(e) {
+    if(e.keyCode == 38) {
+        upPressed = true;
+    }
+    else if(e.keyCode == 40) {
+        downPressed = true;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = true;
+    }
+    else if(e.keyCode == 39) {
+        rightPressed = true;
+    }
 }
 
-
-
-
-var mypush = function() {
-    ctx.clearRect(0, 0, 800,500);
-    numbox.numpush();
-    numbox.drawbox();
-    numbox.drawnum();
-}
 
 var myshuffle = function() {
     numbox.makeArrays();
     numbox.shuffle(numbox.arrays);
     numbox.makeList();
-    display();
+    //display();
+    //onKeydown();
 }
+
 var display = function() {
     ctx.clearRect(0, 0, 800,500);
     numbox.drawbox();
     numbox.drawnum();
-
+    if(rightPressed) {
+        numbox.right();
+        rightPressed = false;
+        
+    }
+    else if(leftPressed) {
+        numbox.left();
+        leftPressed = false;
+    }
+    else if(upPressed) {
+        numbox.up();
+        upPressed = false;
+    }
+    else if(downPressed) {
+        numbox.down();
+        downPressed = false;
+    }
 }
+myshuffle();
+var stop = setInterval(display,10);
+
+
+
