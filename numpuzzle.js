@@ -10,7 +10,7 @@ var leftPressed = false;
 
 //document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
-
+var screen = document.getElementById('screen');
 
 
 
@@ -156,8 +156,6 @@ var myshuffle = function() {
     numbox.makeArrays();
     numbox.shuffle(numbox.arrays);
     numbox.makeList();
-    //display();
-    //onKeydown();
 }
 
 var display = function() {
@@ -181,7 +179,15 @@ var display = function() {
         numbox.down();
         downPressed = false;
     }
+    numbox.arrays = numbox.numArr.join(",");
+    if(numbox.arrays == "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0"){
+        screen.innerHTML = '정답입니다.';
+        console.log('123123123213');
+        clearInterval(stop);
+        display();
+    }
 }
+
 myshuffle();
 var stop = setInterval(display,10);
 
