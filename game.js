@@ -77,7 +77,7 @@ var ball = {x: w/2, y: h - 30, r: 10, dx: 2, dy: -2};
 ball.draw =function() { 
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
-    ctx.fillStyle ="#FF0000";
+        ctx.fillStyle ="#FF0000";
     ctx.fill();
     ctx.closePath();
     this.check();

@@ -22,12 +22,31 @@
         //3 하드 코딩한거 바꾸기
 
 
+        // 1. 초기 화
+        var random1 = function() {
+            var num1= 0;
+            const numLength = 3;
+            for ( var i= 0; i < 3; i++) {
+                num1 = Math.floor(Math.random()*10);
+                while (num.includes(num1) === true ) {
+                    num1 = Math.floor(Math.random()*10);
+                    //console.log(a);
+                   // console.log(i+'i')
+                }
+                num[i] = num1;
+
+            }
+            //console.log(num);
+        }
+
+
         // 동작
         var start = function() {
             // 입력값 인식
-           var strike = 0;
-           var ball = 0;
-           var out = 0 ;
+            
+            var strike = 0;
+            var ball = 0;
+            var out = 0 ;
             inputNum = document.getElementById('num').value;
             if (inputNum.length === 3 && isNull() !==false) {
                 strike =isStrike();
@@ -70,21 +89,7 @@
             return out;
         }
 
-        // 1. 초기 화
-        var random1 = function() {
-            var num1= 0;
-            for ( var i= 0; i < 3; i++) {
-                num1 = Math.floor(Math.random()*10);
-                while (num.includes(num1) === true ) {
-                    num1 = Math.floor(Math.random()*10);
-                    //console.log(a);
-                   // console.log(i+'i')
-                }
-                num[i] = num1;
 
-            }
-            //console.log(num);
-        }
         // 출력
 
         var display = function(strike,ball,out) {
