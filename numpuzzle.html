@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>numpuzzle</title>
+    <style>
+            * { padding: 0; margin: 0; }
+            canvas {background: #eee; display : block; margin: 0 auto;}
+            button {
+                font-size: 20px;
+                margin : 5px;
+            }
+    </style>
+</head>
+<body>
+    <h2>숫자퍼즐</h2>
+    <div id = "btns">
+        <button onclick = 'mypush()'>뒤집기</button>
+        <button onclick = 'mypush()'>푸시</button>
+    </div>
+    <canvas id="puzzle" width="800" height="500"></canvas>
+    <script src = 'numpuzzle.js'></script>
+    
+</body>
+</html>
