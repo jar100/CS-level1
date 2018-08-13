@@ -1,5 +1,6 @@
 
-var numbox = {n:100, w:50,arrays:[]};
+var numbox = {w:75, h:100,arrays:[]};
+// w 세로 h 가로
 var canvas = document.getElementById('puzzle');
 var ctx = canvas.getContext('2d');     
 
@@ -46,10 +47,11 @@ numbox.shuffle = function(arrays) {
 //상자 그리기
 numbox.drawbox = function() {
     if (canvas.getContext) {
-        ctx.fillStyle ="#FF0000";
+        ctx.fillStyle ="#0095DD";
         for(var i = 0 ; i < 4; i++) {
             for (var j = 0; j < 4; j++) {
-                ctx.fillRect(25+(i*this.n), 25+(j*this.w), 50, 25);
+                ctx.fillRect(70+(i*this.h), 40+(j*this.w),75,50);
+                // 좌표값 , 크기
             }
         }
     }
@@ -59,12 +61,13 @@ numbox.drawbox = function() {
 numbox.drawnum = function() {
     if (canvas.getContext) {
         var ctx = canvas.getContext('2d');
-        ctx.font = "20px malgun gothic"; //폰트의 크기, 글꼴체 지정      
+        ctx.font = "30px malgun gothic"; //폰트의 크기, 글꼴체 지정 
+        ctx.textAlign = "center";     
         ctx.fillStyle ="#FFFF00";
         for(var i = 0 ; i < 4; i++) {
             for (var j = 0; j < 4; j++) {
                 if( this.numArr[i] [j] !== 0 ){
-                    ctx.fillText(this.numArr[i][j],40+(j*this.n), 40+(i*this.w));
+                    ctx.fillText(this.numArr[i][j],105+(j*this.h), 75+(i*this.w));
                 }
             }
         }
