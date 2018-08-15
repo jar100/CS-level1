@@ -9,17 +9,19 @@ var downPressed = false;
 var rightPressed = false;
 var leftPressed = false;
 
-//document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 var screen = document.getElementById('screen');
 
 
 
-// 배열 정렬하고 만드는 함수들 좀더 줄일 수 있을거 같다.
-numbox.makeArrays = function() {    
-    for (var i = 0; i < 16; i++) {
+// 배열 정렬
+numbox.makeArrays = function() {
+    numbox.arrays = [];
+    // 초기화  
+    for (var i = 1; i < 16; i++) {
         numbox.arrays.push(i);
     }
+    numbox.arrays.push(0);
 }
 
 numbox.makeList = function() {
@@ -29,7 +31,8 @@ numbox.makeList = function() {
     }
 }
 
-// 랜덤정렬
+
+// 랜덤정렬 1 ( 퍼즐이 안맞춰지는 문제가 발생)
 numbox.shuffle = function(arrays) {
     for ( var i =arrays.length-1; i>0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -37,13 +40,32 @@ numbox.shuffle = function(arrays) {
         arrays[i] = arrays[j];
         arrays[j] = temp;
     }
-   
-
-
 }
 
+// 랜덤정렬 2 
+numbox.shuffle2 = function() {
+    var shuffleNums = 0;
+    for ( var i = 0 ; i < 1000; i++) {
+        shuffleNums = Math.floor(Math.random() * (4));
+        if ( shuffleNums === 0) {
+            this.zeroUp();
+        }
+        else if ( shuffleNums === 1) {
+            this.zeroDown();
+        }
+        else if ( shuffleNums === 2) {
+            this.zeroLeft();
+        }
+        else if ( shuffleNums === 3) {
+            this.zeroRight();
+        }
+    }
+} 
 
 
+
+//////////////////////////////////////////
+// 그리기
 //상자 그리기
 numbox.drawbox = function() {
     if (canvas.getContext) {
@@ -73,8 +95,19 @@ numbox.drawnum = function() {
         }
     }
 }
+/// 시간을 그리는 함수
+function drawTime() {
+    var time = new Date();
+    ctx.textAlign = "start";     
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Time: "+time, 8, 20);
+}
+////////////////////////////////////////////////////
 
-// 빈공간인 0 찾기
+
+////////////////////////동작
+// 빈공간인 0 위치 찾기
 numbox.find = function() {
     for ( var i = 0 ; i < 4; i++) {
         var find = this.numArr[i].indexOf(0); 
@@ -84,16 +117,8 @@ numbox.find = function() {
         }
     }
 }
-
-
-numbox.numpush = function() {
-    this.numshift =this.numArr[0].shift();
-    this.numArr[0].push(this.numshift);
-}
-
-////////////////////////버튼
 // 오른쪽
-numbox.right = function() {
+numbox.zeroRight = function() {
     this.find();
     if (this.zero[2] === "3" ) {
         
@@ -105,7 +130,7 @@ numbox.right = function() {
    // display();
 }
 // 왼쪽
-numbox.left = function() {
+numbox.zeroLeft = function() {
     this.find();
     if (this.zero[2] === "0" ) {
         
@@ -116,7 +141,7 @@ numbox.left = function() {
     }
 }
 // 위
-numbox.up = function() {
+numbox.zeroUp = function() {
     this.find();
     if (this.zero[0] === "0" ) {
         
@@ -127,7 +152,7 @@ numbox.up = function() {
     }
 }
 // 아래
-numbox.down = function() {
+numbox.zeroDown = function() {
     this.find();
     if (this.zero[0] === "3" ) {
         
@@ -139,59 +164,76 @@ numbox.down = function() {
 }
 ///////////////////////////////
 
+
+////// 키보드 입력 인식 
 function keyUpHandler(e) {
     if(e.keyCode == 38) {
         upPressed = true;
+        keyEvent();
     }
     else if(e.keyCode == 40) {
         downPressed = true;
+        keyEvent();
     }
     else if(e.keyCode == 37) {
         leftPressed = true;
+        keyEvent();
     }
     else if(e.keyCode == 39) {
         rightPressed = true;
+        keyEvent();
     }
 }
-
-
-var myshuffle = function() {
-    numbox.makeArrays();
-    numbox.shuffle(numbox.arrays);
-    numbox.makeList();
-}
-
-var display = function() {
-    ctx.clearRect(0, 0, 800,500);
-    numbox.drawbox();
-    numbox.drawnum();
+// 키보드 값에 대해 매칭하는 함수 실행
+function keyEvent() {
     if(rightPressed) {
-        numbox.right();
+        numbox.zeroRight();
         rightPressed = false;
         
     }
     else if(leftPressed) {
-        numbox.left();
+        numbox.zeroLeft();
         leftPressed = false;
     }
     else if(upPressed) {
-        numbox.up();
+        numbox.zeroUp();
         upPressed = false;
     }
     else if(downPressed) {
-        numbox.down();
+        numbox.zeroDown();
         downPressed = false;
     }
+}
+////////////////////////////////////
+
+
+// 랜덤값 만들기
+var myshuffle = function() {
+    numbox.makeArrays();
+    numbox.makeList();
+    numbox.shuffle2();
+}
+
+
+// 캔퍼스에 그림을 지속적으로 출력한다. 
+var display = function() {
+    ctx.clearRect(0, 0, 800,500);
+    drawTime();
+    numbox.drawbox();
+    numbox.drawnum();
+    
     numbox.arrays = numbox.numArr.join(",");
     if(numbox.arrays == "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0"){
         screen.innerHTML = '정답입니다.';
         console.log('123123123213');
         clearInterval(stop);
-        display();
+       // display();
     }
 }
 
+// 시작시 렌덤값을 구하게 하기
 myshuffle();
+// 화면 출력
 var stop = setInterval(display,10);
 
 
