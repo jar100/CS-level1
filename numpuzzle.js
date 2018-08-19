@@ -32,18 +32,8 @@ numbox.makeList = function() {
 }
 
 
-// 랜덤정렬 1 ( 퍼즐이 안맞춰지는 문제가 발생)
-numbox.shuffle = function(arrays) {
-    for ( var i =arrays.length-1; i>0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = arrays[i];
-        arrays[i] = arrays[j];
-        arrays[j] = temp;
-    }
-}
-
-// 랜덤정렬 2 
-numbox.shuffle2 = function() {
+// 랜덤정렬 
+numbox.shuffle = function() {
     var shuffleNums = 0;
     for ( var i = 0 ; i < 1000; i++) {
         shuffleNums = Math.floor(Math.random() * (4));
@@ -98,10 +88,15 @@ numbox.drawnum = function() {
 /// 시간을 그리는 함수
 function drawTime() {
     var time = new Date();
+    var minutes = time.getMinutes() - startTime.getMinutes();
+    if ( minutes.toString().length ==1 ) {
+        minutes = '0' + minutes.toString();
+    }
     ctx.textAlign = "start";     
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
-    ctx.fillText("Time: "+time, 8, 20);
+    console.log(minutes);
+    ctx.fillText("Time: "+ minutes +":"+(time-startTime), 8, 20);
 }
 ////////////////////////////////////////////////////
 
@@ -211,7 +206,7 @@ function keyEvent() {
 var myshuffle = function() {
     numbox.makeArrays();
     numbox.makeList();
-    numbox.shuffle2();
+    numbox.shuffle();
 }
 
 
@@ -233,6 +228,7 @@ var display = function() {
 
 // 시작시 렌덤값을 구하게 하기
 myshuffle();
+var startTime = new Date;
 // 화면 출력
 var stop = setInterval(display,10);
 
